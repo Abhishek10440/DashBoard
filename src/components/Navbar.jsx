@@ -42,7 +42,7 @@ function Navbar() {
           <FaBell className="text-2xl cursor-pointer text-slate-700 hover:text-blue-600 transition" />
 
           <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 rounded-full">
-            3
+            73
           </span>
         </div>
 
