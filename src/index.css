@@ -1,1 +1,81 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-base:      #07080C;
+  --bg-surface:   #0D0E14;
+  --bg-card:      #111318;
+  --bg-hover:     #16181F;
+  --border:       rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --violet:       #7C5CFC;
+  --violet-soft:  rgba(124,92,252,0.12);
+  --violet-border:rgba(124,92,252,0.3);
+  --green:        #00C896;
+  --green-soft:   rgba(0,200,150,0.1);
+  --red:          #FF4D6A;
+  --red-soft:     rgba(255,77,106,0.1);
+  --gold:         #F0A500;
+  --gold-soft:    rgba(240,165,0,0.1);
+  --text-primary: #F0F0F5;
+  --text-secondary:#8B8FA8;
+  --text-muted:   #4A4D61;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* Recharts overrides */
+.recharts-tooltip-wrapper { outline: none; }
+.recharts-default-tooltip {
+  background: #16181F !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 8px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+}
+.recharts-tooltip-label { color: #8B8FA8 !important; margin-bottom: 4px !important; }
+
+/* Ticker animation */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track { animation: ticker 30s linear infinite; }
+.ticker-track:hover { animation-play-state: paused; }
+
+/* Pulse dot */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.5); }
+}
+.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* Number count-up flash */
+@keyframes flash-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.flash-in { animation: flash-in 0.4s ease both; }
+
+/* Glow effect on cards */
+.glow-violet:hover { box-shadow: 0 0 0 1px var(--violet-border), 0 4px 24px rgba(124,92,252,0.08); }
+.glow-green:hover  { box-shadow: 0 0 0 1px rgba(0,200,150,0.25), 0 4px 24px rgba(0,200,150,0.06); }
