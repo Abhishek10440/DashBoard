@@ -1,153 +1,124 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion } from 'framer-motion'
+import { RiBellLine } from 'react-icons/ri'
+import { useState } from 'react'
 
-const tickerItems = [
-  { name: 'NSEI',    val: '23,824', chg: '-1.09%', up: false },
-  { name: 'BANKNIFTY', val: '57,183', chg: '-0.70%', up: false },
-  { name: 'BSESN',  val: '76,200', chg: '-1.24%', up: false },
-  { name: 'BTC',    val: '$62,357', chg: '-1.86%', up: false },
-  { name: 'ETH',    val: '$1,658',  chg: '-3.10%', up: false },
-  { name: 'GOLD',   val: '$2,341',  chg: '+0.32%', up: true  },
-  { name: 'USD/INR',val: '83.42',   chg: '+0.08%', up: true  },
-  { name: 'VIX',    val: '13.94',   chg: '+2.1%',  up: false },
-];
+const TICKS = [
+  { s: 'NSEI',      v: '23,824',  c: '-1.09%', up: false },
+  { s: 'BANKNIFTY', v: '57,183',  c: '-0.70%', up: false },
+  { s: 'SENSEX',    v: '76,200',  c: '-1.24%', up: false },
+  { s: 'BTC',       v: '$62,357', c: '-1.86%', up: false },
+  { s: 'ETH',       v: '$1,658',  c: '-3.10%', up: false },
+  { s: 'GOLD',      v: '$2,341',  c: '+0.32%', up: true  },
+  { s: 'USD/INR',   v: '83.42',   c: '+0.08%', up: true  },
+]
 
 export default function Navbar() {
-  const [notifCount, setNotifCount] = useState(3);
-
-  const doubled = [...tickerItems, ...tickerItems];
+  const [notif, setNotif] = useState(3)
+  const doubled = [...TICKS, ...TICKS]
 
   return (
     <motion.nav
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      initial={{ y: -56 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        background: 'rgba(7,8,12,0.95)',
+        height: 56,
+        background: 'rgba(10,11,16,0.98)',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid var(--border)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
         display: 'flex', flexDirection: 'column',
-        height: '64px',
       }}
     >
-      {/* Top row */}
-      <div style={{ display: 'flex', alignItems: 'center', padding: '0 20px', height: '38px', gap: 12 }}>
+      {/* Main row */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '0 20px', height: 36, flex: 1 }}>
         {/* Brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 8, flexShrink: 0 }}>
           <div style={{
-            width: 28, height: 28, borderRadius: 8,
-            background: 'var(--violet)',
+            width: 26, height: 26, borderRadius: 7,
+            background: '#7c3aed',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 700, fontSize: 13, color: '#fff', flexShrink: 0,
+            color: '#fff', fontSize: 12, fontWeight: 700,
           }}>Q</div>
-          <span style={{ fontWeight: 600, fontSize: 14, letterSpacing: '-0.3px' }}>QuantMentor</span>
+          <span style={{ fontWeight: 600, fontSize: 14, letterSpacing: '-0.3px', color: '#f0f0f5' }}>QuantMentor</span>
         </div>
 
-        {/* Nav links */}
-        <div style={{ display: 'flex', gap: 2, flex: 1 }}>
-          {['Dashboard', 'Strategies', 'Live Trading', 'Journal', 'Analytics'].map((item, i) => (
-            <motion.button
-              key={item}
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.05 }}
-              style={{
-                padding: '4px 10px',
-                borderRadius: 6,
-                border: 'none',
-                background: item === 'Dashboard' ? 'rgba(124,92,252,0.15)' : 'transparent',
-                color: item === 'Dashboard' ? 'var(--violet)' : 'var(--text-secondary)',
-                fontSize: 12, fontWeight: 500, cursor: 'pointer',
-                transition: 'all 0.15s',
-              }}
-              onMouseEnter={e => { if (item !== 'Dashboard') { e.target.style.color = 'var(--text-primary)'; e.target.style.background = 'rgba(255,255,255,0.05)'; }}}
-              onMouseLeave={e => { if (item !== 'Dashboard') { e.target.style.color = 'var(--text-secondary)'; e.target.style.background = 'transparent'; }}}
-            >
-              {item}
-            </motion.button>
-          ))}
-        </div>
+        <div style={{ flex: 1 }} />
 
-        {/* Right side */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          {/* Market status */}
+        {/* Right */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
             display: 'flex', alignItems: 'center', gap: 6,
             padding: '3px 10px', borderRadius: 20,
-            background: 'var(--red-soft)',
-            border: '1px solid rgba(255,77,106,0.2)',
+            background: 'rgba(239,68,68,0.1)',
+            border: '1px solid rgba(239,68,68,0.2)',
           }}>
-            <span className="pulse-dot" style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--red)', display: 'block' }} />
-            <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--red)' }}>Bearish</span>
+            <span style={{
+              width: 6, height: 6, borderRadius: '50%',
+              background: '#f87171', display: 'block',
+              animation: 'blink 1.8s ease-in-out infinite',
+            }} />
+            <span style={{ fontSize: 11, fontWeight: 600, color: '#f87171' }}>Bearish</span>
           </div>
 
-          {/* Notif */}
           <button
-            onClick={() => setNotifCount(0)}
+            onClick={() => setNotif(0)}
             style={{
-              position: 'relative', width: 30, height: 30, borderRadius: 8,
+              width: 30, height: 30, borderRadius: 8,
               background: 'rgba(255,255,255,0.05)',
-              border: '1px solid var(--border)',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'var(--text-secondary)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'rgba(255,255,255,0.4)', cursor: 'pointer',
+              position: 'relative',
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-            </svg>
-            {notifCount > 0 && (
-              <motion.span
-                initial={{ scale: 0 }} animate={{ scale: 1 }}
-                style={{
-                  position: 'absolute', top: -3, right: -3,
-                  width: 14, height: 14, borderRadius: '50%',
-                  background: 'var(--violet)', color: '#fff',
-                  fontSize: 9, fontWeight: 700,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}
-              >{notifCount}</motion.span>
+            <RiBellLine size={14} />
+            {notif > 0 && (
+              <span style={{
+                position: 'absolute', top: -3, right: -3,
+                width: 14, height: 14, borderRadius: '50%',
+                background: '#7c3aed', color: '#fff',
+                fontSize: 9, fontWeight: 700,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>{notif}</span>
             )}
           </button>
 
-          {/* Avatar */}
           <div style={{
             width: 30, height: 30, borderRadius: '50%',
-            background: 'rgba(124,92,252,0.2)',
-            border: '1px solid var(--violet-border)',
+            background: 'rgba(124,58,237,0.2)',
+            border: '1px solid rgba(124,58,237,0.4)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 11, fontWeight: 600, color: '#A78BFA',
+            fontSize: 11, fontWeight: 600, color: '#c4b5fd',
           }}>AS</div>
         </div>
       </div>
 
-      {/* Ticker row */}
+      {/* Ticker */}
       <div style={{
-        height: 26, overflow: 'hidden',
-        borderTop: '1px solid var(--border)',
-        display: 'flex', alignItems: 'center',
+        height: 20, overflow: 'hidden',
+        borderTop: '1px solid rgba(255,255,255,0.05)',
         background: 'rgba(255,255,255,0.015)',
+        display: 'flex', alignItems: 'center',
       }}>
         <div style={{
           padding: '0 12px', fontSize: 10, fontWeight: 600,
-          color: 'var(--text-muted)', borderRight: '1px solid var(--border)',
-          height: '100%', display: 'flex', alignItems: 'center',
-          flexShrink: 0, letterSpacing: '0.05em', textTransform: 'uppercase',
-        }}>Markets</div>
+          color: 'rgba(255,255,255,0.2)', letterSpacing: '0.06em',
+          textTransform: 'uppercase', borderRight: '1px solid rgba(255,255,255,0.06)',
+          height: '100%', display: 'flex', alignItems: 'center', flexShrink: 0,
+        }}>Live</div>
         <div style={{ overflow: 'hidden', flex: 1 }}>
-          <div className="ticker-track" style={{ display: 'flex', whiteSpace: 'nowrap' }}>
+          <div className="ticker" style={{ display: 'flex', whiteSpace: 'nowrap' }}>
             {doubled.map((t, i) => (
               <div key={i} style={{
                 display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '0 18px',
-                borderRight: '1px solid var(--border)',
+                padding: '0 16px', borderRight: '1px solid rgba(255,255,255,0.05)',
                 fontSize: 11,
               }}>
-                <span style={{ color: 'var(--text-muted)', fontWeight: 500 }}>{t.name}</span>
-                <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 500 }}>{t.val}</span>
-                <span style={{ fontWeight: 600, color: t.up ? 'var(--green)' : 'var(--red)' }}>
-                  {t.up ? '▲' : '▼'} {t.chg}
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontWeight: 500 }}>{t.s}</span>
+                <span style={{ color: 'rgba(255,255,255,0.7)' }}>{t.v}</span>
+                <span style={{ fontWeight: 600, color: t.up ? '#34d399' : '#f87171' }}>
+                  {t.up ? '▲' : '▼'} {t.c}
                 </span>
               </div>
             ))}
@@ -155,5 +126,5 @@ export default function Navbar() {
         </div>
       </div>
     </motion.nav>
-  );
+  )
 }
