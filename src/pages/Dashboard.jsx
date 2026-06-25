@@ -55,7 +55,7 @@ export default function Dashboard() {
       >
         <div>
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 4 }}>
-            Welcome back, <span style={{ color: '#a78bfa' }}>Abhishek</span> 👋
+            Welcome back, <span style={{ color: '#a78bfa' }}>User</span> 
           </p>
           <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.5px', color: '#f0f0f5' }}>Dashboard</h1>
         </div>
@@ -141,40 +141,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* AI Summary */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.44 }}
-        style={{ ...card, padding: '16px 20px', display: 'flex', gap: 14, alignItems: 'flex-start' }}
-      >
-        <div style={{
-          width: 34, height: 34, borderRadius: 9, flexShrink: 0,
-          background: 'rgba(124,58,237,0.2)', border: '1px solid rgba(124,58,237,0.3)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>
-          <RiSparklingLine size={16} style={{ color: '#a78bfa' }} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f5' }}>AI Market Summary</span>
-            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)', marginLeft: 'auto' }}>11:32 PM</span>
-          </div>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
-            Broad bearish sentiment today. NIFTY 50 down 1%+, crypto declining across the board.
-            VIX at 13.94 — medium volatility. Consider tighter stops until momentum stabilises.
-          </p>
-          <div style={{ display: 'flex', gap: 6, marginTop: 10 }}>
-            {['S: 23,784', 'R: 24,135', 'VIX 13.94'].map(tag => (
-              <span key={tag} style={{
-                fontSize: 10, color: 'rgba(255,255,255,0.3)',
-                padding: '2px 8px', borderRadius: 6,
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.08)',
-              }}>{tag}</span>
-            ))}
-          </div>
-        </div>
-      </motion.div>
+      
 
       {/* Modules */}
       <div>

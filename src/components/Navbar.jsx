@@ -47,20 +47,6 @@ export default function Navbar() {
 
         {/* Right */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 6,
-            padding: '3px 10px', borderRadius: 20,
-            background: 'rgba(239,68,68,0.1)',
-            border: '1px solid rgba(239,68,68,0.2)',
-          }}>
-            <span style={{
-              width: 6, height: 6, borderRadius: '50%',
-              background: '#f87171', display: 'block',
-              animation: 'blink 1.8s ease-in-out infinite',
-            }} />
-            <span style={{ fontSize: 11, fontWeight: 600, color: '#f87171' }}>Bearish</span>
-          </div>
-
           <button
             onClick={() => setNotif(0)}
             style={{
@@ -90,7 +76,7 @@ export default function Navbar() {
             border: '1px solid rgba(124,58,237,0.4)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 11, fontWeight: 600, color: '#c4b5fd',
-          }}>AS</div>
+          }}>User</div>
         </div>
       </div>
 
