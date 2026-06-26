@@ -8,19 +8,19 @@ import ChartSection from '../components/ChartSection'
 import Footer from '../components/Footer'
 
 const STATS = [
-  { icon: RiExchangeLine,  label: 'Total Trades', value: 1240, accent: 'violet', change: '8%',  changeUp: true,  index: 0 },
-  { icon: RiLineChartLine, label: 'Total P&L',    value: 5600, accent: 'green',  prefix: '$',   change: '12%', changeUp: true, index: 1 },
-  { icon: RiRobot2Line,    label: 'Active Bots',  value: 12,   accent: 'gold',   index: 2 },
-  { icon: RiCrosshairLine, label: 'Win Rate',      value: 78,   accent: 'green',  suffix: '%',   change: '3%',  changeUp: true,  index: 3 },
+  { icon: RiExchangeLine,  label: 'Total Trades', value: 1240, accent: 'cyan',  change: '8%',  changeUp: true,  index: 0 },
+  { icon: RiLineChartLine, label: 'Total P&L',    value: 5600, accent: 'cyan',  prefix: '$',   change: '12%', changeUp: true, index: 1 },
+  { icon: RiRobot2Line,    label: 'Active Bots',  value: 12,   accent: 'cyan',  index: 2 },
+  { icon: RiCrosshairLine, label: 'Win Rate',      value: 78,   accent: 'cyan',  suffix: '%',   change: '3%',  changeUp: true, index: 3 },
 ]
 
 const MODULES = [
-  { icon: '⚡', label: 'Live AI Assistant', desc: 'Real-time setups & entries',  tag: 'Live', tagBg: 'rgba(52,211,153,0.1)',  tagColor: '#34d399', tagBorder: 'rgba(52,211,153,0.25)' },
-  { icon: '📊', label: 'Chart Analysis',    desc: 'Upload chart for AI review',  tag: 'AI',   tagBg: 'rgba(167,139,250,0.1)', tagColor: '#a78bfa', tagBorder: 'rgba(167,139,250,0.25)' },
-  { icon: '🧠', label: 'AI Strategies',     desc: 'Pre-built backtested bots',   tag: 'New',  tagBg: 'rgba(251,191,36,0.1)',  tagColor: '#fbbf24', tagBorder: 'rgba(251,191,36,0.25)' },
-  { icon: '📓', label: 'Trade Journal',     desc: 'Log trades & lessons',        tag: null },
-  { icon: '📉', label: 'Analytics',         desc: 'Win rate, drawdown, Sharpe',  tag: 'AI',   tagBg: 'rgba(167,139,250,0.1)', tagColor: '#a78bfa', tagBorder: 'rgba(167,139,250,0.25)' },
-  { icon: '💰', label: 'Capital Allocation',desc: 'Risk-controlled sizing',      tag: null },
+  { icon: '⚡', label: 'Live AI Assistant', desc: 'Real-time setups & entries', tag: 'Live', tagBg: 'rgba(0,212,170,0.1)',  tagColor: '#00d4aa', tagBorder: 'rgba(0,212,170,0.25)' },
+  { icon: '📊', label: 'Chart Analysis',    desc: 'Upload chart for AI review', tag: 'AI',   tagBg: 'rgba(0,212,170,0.1)',  tagColor: '#00d4aa', tagBorder: 'rgba(0,212,170,0.25)' },
+  { icon: '🧠', label: 'AI Strategies',     desc: 'Pre-built backtested bots',  tag: 'New',  tagBg: 'rgba(251,191,36,0.1)', tagColor: '#fbbf24', tagBorder: 'rgba(251,191,36,0.25)' },
+  { icon: '📓', label: 'Trade Journal',     desc: 'Log trades & lessons',       tag: null },
+  { icon: '📉', label: 'Analytics',         desc: 'Win rate, drawdown, Sharpe', tag: 'AI',   tagBg: 'rgba(0,212,170,0.1)',  tagColor: '#00d4aa', tagBorder: 'rgba(0,212,170,0.25)' },
+  { icon: '💰', label: 'Capital Allocation',desc: 'Risk-controlled sizing',     tag: null },
 ]
 
 const GAINERS = [
@@ -36,10 +36,12 @@ const LOSERS = [
   { name: 'Camtek Ltd.',    pct: '-12.8%' },
 ]
 
-const STEPS = ['View Market Pulse','Upload a chart','Create a strategy','Run paper bot','Log a trade','Connect broker']
+// Reference site ke exactly jaisi steps — 2 column layout
+const STEPS_LEFT  = ['View AI Market Pulse', 'Create your first strategy', 'Log a trade in the journal']
+const STEPS_RIGHT = ['Upload your first chart', 'Run your first paper bot', 'Connect your broker']
 
 const card = {
-  background: '#13141b',
+  background: '#0f1525',
   border: '1px solid rgba(255,255,255,0.07)',
   borderRadius: 12,
 }
@@ -48,60 +50,99 @@ export default function Dashboard() {
   return (
     <div style={{ maxWidth: 1080, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
 
-      {/* Greeting */}
+      {/* Greeting — exactly like reference */}
       <motion.div
         initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
         style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}
       >
         <div>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', marginBottom: 4 }}>
-            Welcome back, <span style={{ color: '#a78bfa' }}>User</span> 
+          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#fff', marginBottom: 4 }}>
+            Welcome back, User👋
+          </h1>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>
+            Your command center for AI-powered trading. Navigate to any module below.
           </p>
-          <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.5px', color: '#f0f0f5' }}>Dashboard</h1>
         </div>
         <motion.button
           whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            padding: '8px 16px', borderRadius: 8,
-            background: '#7c3aed', border: 'none',
-            color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            padding: '10px 20px', borderRadius: 8,
+            background: '#00d4aa', border: 'none',
+            color: '#0a0d1a', fontSize: 13, fontWeight: 700, cursor: 'pointer',
           }}
         >
-          <RiAddLine size={14} /> New Strategy
+          <RiAddLine size={15} /> Create Strategy
         </motion.button>
       </motion.div>
 
-      {/* Stat cards */}
+      {/* Stat cards — 4 column like reference */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12 }}>
         {STATS.map(s => <StatCard key={s.label} {...s} />)}
       </div>
 
-      {/* Onboarding */}
+      {/* Onboarding — exactly like reference: 2 column steps */}
       <motion.div
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.28 }}
-        style={{ ...card, padding: '16px 20px', background: 'rgba(124,58,237,0.07)', border: '1px solid rgba(124,58,237,0.2)' }}
+        style={{ ...card, padding: '20px 24px' }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-          <span style={{ fontSize: 12, fontWeight: 600, color: '#c4b5fd' }}>Get started · 0 / 6</span>
-          <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.2)' }}>0%</span>
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+          <span style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>Get started with QuantMentor</span>
+          <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>0/6 · 0%</span>
         </div>
-        <div style={{ height: 3, background: 'rgba(124,58,237,0.15)', borderRadius: 4, marginBottom: 12, overflow: 'hidden' }}>
+
+        {/* Progress bar */}
+        <div style={{ height: 2, background: 'rgba(255,255,255,0.06)', borderRadius: 4, marginBottom: 20, overflow: 'hidden' }}>
           <motion.div
             initial={{ width: 0 }} animate={{ width: '0%' }}
-            style={{ height: '100%', background: '#7c3aed', borderRadius: 4 }}
+            style={{ height: '100%', background: '#00d4aa', borderRadius: 4 }}
           />
         </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-          {STEPS.map(s => (
-            <span key={s} style={{
-              fontSize: 11, color: 'rgba(255,255,255,0.3)',
-              padding: '4px 10px', borderRadius: 20,
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.08)',
-            }}>○ {s}</span>
-          ))}
+
+        {/* 2-column steps — exactly like reference */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {STEPS_LEFT.map(s => (
+              <div key={s} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '12px 0',
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{
+                    width: 18, height: 18, borderRadius: '50%',
+                    border: '1.5px solid rgba(255,255,255,0.2)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                  }} />
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>{s}</span>
+                </div>
+                <span style={{ color: '#00d4aa', fontSize: 16, marginRight: 24 }}>→</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', borderLeft: '1px solid rgba(255,255,255,0.05)', paddingLeft: 24 }}>
+            {STEPS_RIGHT.map(s => (
+              <div key={s} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '12px 0',
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{
+                    width: 18, height: 18, borderRadius: '50%',
+                    border: '1.5px solid rgba(255,255,255,0.2)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                  }} />
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>{s}</span>
+                </div>
+                <span style={{ color: '#00d4aa', fontSize: 16 }}>→</span>
+              </div>
+            ))}
+          </div>
         </div>
       </motion.div>
 
@@ -120,7 +161,7 @@ export default function Dashboard() {
               style={{ ...card, padding: '16px', flex: 1 }}
             >
               <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.3)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ color: group.up ? '#34d399' : '#f87171' }}>{group.up ? '▲' : '▼'}</span>
+                <span style={{ color: group.up ? '#061411' : '#f87171' }}>{group.up ? '▲' : '▼'}</span>
                 {group.title}
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -132,7 +173,7 @@ export default function Dashboard() {
                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                   >
                     <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 120 }}>{item.name}</span>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: group.up ? '#34d399' : '#f87171', fontFamily: 'monospace' }}>{item.pct}</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: group.up ? '#00d4aa' : '#f87171', fontFamily: 'monospace' }}>{item.pct}</span>
                   </motion.div>
                 ))}
               </div>
@@ -140,8 +181,6 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
-
-      
 
       {/* Modules */}
       <div>
@@ -154,7 +193,7 @@ export default function Dashboard() {
               transition={{ delay: 0.46 + i * 0.05 }}
               whileHover={{ y: -2, transition: { duration: 0.12 } }}
               style={{ ...card, padding: '16px', cursor: 'pointer', transition: 'border-color 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(124,58,237,0.3)'}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(0,212,170,0.3)'}
               onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
             >
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 10 }}>
@@ -188,7 +227,7 @@ export default function Dashboard() {
         <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
           <motion.button
             whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-            style={{ padding: '8px 18px', borderRadius: 8, background: '#7c3aed', border: 'none', color: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer' }}
+            style={{ padding: '8px 18px', borderRadius: 8, background: '#00d4aa', border: 'none', color: '#0a0d1a', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}
           >+ Build Strategy</motion.button>
           <button style={{
             padding: '8px 18px', borderRadius: 8,

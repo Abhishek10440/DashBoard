@@ -5,7 +5,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #0c0d11;
+  background: #0a0d1a;
   color: #e8e9f0;
   -webkit-font-smoothing: antialiased;
 }
@@ -37,4 +37,11 @@ body {
   border-radius: 8px !important;
   font-size: 12px !important;
   font-family: 'Inter', sans-serif !important;
+}
+:root {
+  --bg:         #0a0d1a;   /* Main bg */
+  --bg-card:    #0f1525;   /* Card bg */
+  --bg-sidebar: #0c1020;   /* Sidebar bg */
+  --cyan:       #00d4aa;   /* Accent color - sab jagah */
+  --border:     rgba(255,255,255,0.07);
 }

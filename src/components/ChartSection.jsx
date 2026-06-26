@@ -30,7 +30,7 @@ export default function ChartSection() {
       initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.35 }}
       style={{
-        background: '#13141b',
+        background: '#0f1525',
         border: '1px solid rgba(255,255,255,0.07)',
         borderRadius: 12, padding: '20px',
       }}
@@ -51,16 +51,16 @@ export default function ChartSection() {
         <AreaChart data={DATA} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
           <defs>
             <linearGradient id="pnlGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.35" />
-              <stop offset="100%" stopColor="#7c3aed" stopOpacity="0" />
+              <stop offset="0%" stopColor="#00d4aa" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#00d4aa" stopOpacity="0" />
             </linearGradient>
           </defs>
           <CartesianGrid stroke="rgba(255,255,255,0.04)" vertical={false} />
           <XAxis dataKey="m" tick={{ fill: '#3a3b48', fontSize: 11 }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fill: '#3a3b48', fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={v => `$${v/1000}k`} />
           <Tooltip content={<Tip />} />
-          <Area type="monotone" dataKey="pnl" stroke="#7c3aed" strokeWidth={2}
-            fill="url(#pnlGrad)" dot={false} activeDot={{ r: 4, fill: '#7c3aed', strokeWidth: 0 }} />
+          <Area type="monotone" dataKey="pnl" stroke="#00d4aa" strokeWidth={2}
+            fill="url(#pnlGrad)" dot={false} activeDot={{ r: 4, fill: '#00d4aa', strokeWidth: 0 }} />
         </AreaChart>
       </ResponsiveContainer>
     </motion.div>
