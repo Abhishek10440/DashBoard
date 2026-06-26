@@ -1,18 +1,20 @@
-import { motion } from 'framer-motion'
+// src/pages/Dashboard.jsx
+import { motion } from 'framer-motion';
 import {
   RiExchangeLine, RiLineChartLine, RiRobot2Line, RiCrosshairLine,
-  RiArrowRightUpLine, RiSparklingLine, RiAddLine,
-} from 'react-icons/ri'
-import StatCard from '../components/StatCard'
-import ChartSection from '../components/ChartSection'
-import Footer from '../components/Footer'
+  RiArrowRightUpLine, RiAddLine,
+} from 'react-icons/ri';
+import StatCard from '../components/StatCard';
+import ChartSection from '../components/ChartSection';
+import Footer from '../components/Footer';
+import { useUser } from '../context/UserContext';
 
 const STATS = [
   { icon: RiExchangeLine,  label: 'Total Trades', value: 1240, accent: 'cyan',  change: '8%',  changeUp: true,  index: 0 },
   { icon: RiLineChartLine, label: 'Total P&L',    value: 5600, accent: 'cyan',  prefix: '$',   change: '12%', changeUp: true, index: 1 },
   { icon: RiRobot2Line,    label: 'Active Bots',  value: 12,   accent: 'cyan',  index: 2 },
   { icon: RiCrosshairLine, label: 'Win Rate',      value: 78,   accent: 'cyan',  suffix: '%',   change: '3%',  changeUp: true, index: 3 },
-]
+];
 
 const MODULES = [
   { icon: '⚡', label: 'Live AI Assistant', desc: 'Real-time setups & entries', tag: 'Live', tagBg: 'rgba(0,212,170,0.1)',  tagColor: '#00d4aa', tagBorder: 'rgba(0,212,170,0.25)' },
@@ -21,43 +23,46 @@ const MODULES = [
   { icon: '📓', label: 'Trade Journal',     desc: 'Log trades & lessons',       tag: null },
   { icon: '📉', label: 'Analytics',         desc: 'Win rate, drawdown, Sharpe', tag: 'AI',   tagBg: 'rgba(0,212,170,0.1)',  tagColor: '#00d4aa', tagBorder: 'rgba(0,212,170,0.25)' },
   { icon: '💰', label: 'Capital Allocation',desc: 'Risk-controlled sizing',     tag: null },
-]
+];
 
 const GAINERS = [
   { name: 'Maase Inc.',      pct: '+31.4%' },
   { name: 'Quantinuum Inc.', pct: '+13.6%' },
   { name: 'Infleqtion Inc.', pct: '+12.9%' },
   { name: 'Varonis Systems', pct: '+9.5%'  },
-]
+];
+
 const LOSERS = [
   { name: 'Primoris Svcs',  pct: '-23.5%' },
   { name: 'AXT Inc',        pct: '-15.7%' },
   { name: 'Sandisk Corp',   pct: '-13.8%' },
   { name: 'Camtek Ltd.',    pct: '-12.8%' },
-]
+];
 
-// Reference site ke exactly jaisi steps — 2 column layout
-const STEPS_LEFT  = ['View AI Market Pulse', 'Create your first strategy', 'Log a trade in the journal']
-const STEPS_RIGHT = ['Upload your first chart', 'Run your first paper bot', 'Connect your broker']
+const STEPS_LEFT  = ['View AI Market Pulse', 'Create your first strategy', 'Log a trade in the journal'];
+const STEPS_RIGHT = ['Upload your first chart', 'Run your first paper bot', 'Connect your broker'];
 
 const card = {
   background: '#0f1525',
   border: '1px solid rgba(255,255,255,0.07)',
   borderRadius: 12,
-}
+};
 
 export default function Dashboard() {
+  const { user } = useUser();
+  const displayName = user.name || 'Guest';
+
   return (
     <div style={{ maxWidth: 1080, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
 
-      {/* Greeting — exactly like reference */}
+      {/* ── Greeting ── */}
       <motion.div
         initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
         style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}
       >
         <div>
           <h1 style={{ fontSize: 24, fontWeight: 700, color: '#fff', marginBottom: 4 }}>
-            Welcome back, User👋
+            Welcome back, <span style={{ color: '#c4b5fd' }}>{displayName}</span> 👋
           </h1>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>
             Your command center for AI-powered trading. Navigate to any module below.
@@ -76,24 +81,22 @@ export default function Dashboard() {
         </motion.button>
       </motion.div>
 
-      {/* Stat cards — 4 column like reference */}
+      {/* ── Stat Cards ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12 }}>
         {STATS.map(s => <StatCard key={s.label} {...s} />)}
       </div>
 
-      {/* Onboarding — exactly like reference: 2 column steps */}
+      {/* ── Onboarding ── */}
       <motion.div
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.28 }}
         style={{ ...card, padding: '20px 24px' }}
       >
-        {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
           <span style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>Get started with QuantMentor</span>
           <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>0/6 · 0%</span>
         </div>
 
-        {/* Progress bar */}
         <div style={{ height: 2, background: 'rgba(255,255,255,0.06)', borderRadius: 4, marginBottom: 20, overflow: 'hidden' }}>
           <motion.div
             initial={{ width: 0 }} animate={{ width: '0%' }}
@@ -101,7 +104,6 @@ export default function Dashboard() {
           />
         </div>
 
-        {/* 2-column steps — exactly like reference */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {STEPS_LEFT.map(s => (
@@ -146,7 +148,7 @@ export default function Dashboard() {
         </div>
       </motion.div>
 
-      {/* Chart + Gainers/Losers */}
+      {/* ── Chart + Gainers/Losers ── */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 260px', gap: 12 }}>
         <ChartSection />
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -182,7 +184,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Modules */}
+      {/* ── Modules ── */}
       <div>
         <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 12 }}>Modules</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10 }}>
@@ -215,7 +217,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Empty strategies CTA */}
+      {/* ── Empty Strategies CTA ── */}
       <motion.div
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
@@ -239,5 +241,5 @@ export default function Dashboard() {
 
       <Footer />
     </div>
-  )
+  );
 }
