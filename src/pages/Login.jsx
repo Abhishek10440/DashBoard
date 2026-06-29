@@ -15,9 +15,8 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate login
     setTimeout(() => {
-      login(name || 'Guest'); // if name empty, use Guest
+      login(name || 'Guest');
       setIsLoading(false);
       navigate('/dashboard');
     }, 1200);
@@ -29,7 +28,7 @@ export default function Login() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#0a0d1a',
+      background: 'var(--bg-base)',
       padding: '20px',
       position: 'relative',
       overflow: 'hidden',
@@ -38,7 +37,7 @@ export default function Login() {
         position: 'absolute',
         top: '-20%', right: '-10%',
         width: '500px', height: '500px',
-        background: 'radial-gradient(circle, rgba(0,212,170,0.12) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, var(--accent-soft) 0%, transparent 70%)',
         borderRadius: '50%',
         pointerEvents: 'none',
       }} />
@@ -46,7 +45,7 @@ export default function Login() {
         position: 'absolute',
         bottom: '-20%', left: '-10%',
         width: '400px', height: '400px',
-        background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, var(--indigo-soft) 0%, transparent 70%)',
         borderRadius: '50%',
         pointerEvents: 'none',
       }} />
@@ -58,9 +57,9 @@ export default function Login() {
         style={{
           width: '100%',
           maxWidth: '400px',
-          background: '#111827',
-          border: '1px solid rgba(255,255,255,0.06)',
-          borderRadius: '16px',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)',
+          borderRadius: 16,
           padding: '40px 32px',
           position: 'relative',
           zIndex: 2,
@@ -81,7 +80,7 @@ export default function Login() {
           <div style={{
             width: '40px', height: '40px',
             borderRadius: '10px',
-            background: '#00d4aa',
+            background: 'var(--accent)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -93,7 +92,7 @@ export default function Login() {
             fontSize: '22px',
             fontWeight: 700,
             letterSpacing: '-0.5px',
-            color: '#f0f0f5',
+            color: 'var(--text-primary)',
           }}>QuantMentor</span>
         </motion.div>
 
@@ -102,11 +101,11 @@ export default function Login() {
           fontWeight: 600,
           marginBottom: '6px',
           textAlign: 'center',
-          color: '#f0f0f5',
+          color: 'var(--text-primary)',
         }}>Welcome</h2>
         <p style={{
           textAlign: 'center',
-          color: '#6b7280',
+          color: 'var(--text-secondary)',
           fontSize: '13px',
           marginBottom: '28px',
         }}>
@@ -114,13 +113,12 @@ export default function Login() {
         </p>
 
         <form onSubmit={handleSubmit}>
-          {/* NEW: Name field */}
           <div style={{ marginBottom: '16px' }}>
             <label style={{
               display: 'block',
               fontSize: '12px',
               fontWeight: 500,
-              color: '#9ca3af',
+              color: 'var(--text-secondary)',
               marginBottom: '5px',
             }}>Full Name</label>
             <input
@@ -133,15 +131,15 @@ export default function Login() {
                 width: '100%',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                border: '1px solid rgba(255,255,255,0.06)',
+                border: '1px solid var(--border)',
                 background: 'rgba(255,255,255,0.03)',
-                color: '#f0f0f5',
+                color: 'var(--text-primary)',
                 fontSize: '13px',
                 outline: 'none',
                 transition: 'border-color 0.2s',
               }}
-              onFocus={e => e.target.style.borderColor = 'rgba(0,212,170,0.4)'}
-              onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.06)'}
+              onFocus={e => e.target.style.borderColor = 'var(--accent-border)'}
+              onBlur={e => e.target.style.borderColor = 'var(--border)'}
             />
           </div>
 
@@ -150,7 +148,7 @@ export default function Login() {
               display: 'block',
               fontSize: '12px',
               fontWeight: 500,
-              color: '#9ca3af',
+              color: 'var(--text-secondary)',
               marginBottom: '5px',
             }}>Email Address</label>
             <input
@@ -163,15 +161,15 @@ export default function Login() {
                 width: '100%',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                border: '1px solid rgba(255,255,255,0.06)',
+                border: '1px solid var(--border)',
                 background: 'rgba(255,255,255,0.03)',
-                color: '#f0f0f5',
+                color: 'var(--text-primary)',
                 fontSize: '13px',
                 outline: 'none',
                 transition: 'border-color 0.2s',
               }}
-              onFocus={e => e.target.style.borderColor = 'rgba(0,212,170,0.4)'}
-              onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.06)'}
+              onFocus={e => e.target.style.borderColor = 'var(--accent-border)'}
+              onBlur={e => e.target.style.borderColor = 'var(--border)'}
             />
           </div>
 
@@ -181,11 +179,11 @@ export default function Login() {
                 display: 'block',
                 fontSize: '12px',
                 fontWeight: 500,
-                color: '#9ca3af',
+                color: 'var(--text-secondary)',
               }}>Password</label>
               <a href="#" style={{
                 fontSize: '12px',
-                color: '#00d4aa',
+                color: 'var(--accent)',
                 textDecoration: 'none',
               }}>Forgot password?</a>
             </div>
@@ -199,15 +197,15 @@ export default function Login() {
                 width: '100%',
                 padding: '10px 14px',
                 borderRadius: '8px',
-                border: '1px solid rgba(255,255,255,0.06)',
+                border: '1px solid var(--border)',
                 background: 'rgba(255,255,255,0.03)',
-                color: '#f0f0f5',
+                color: 'var(--text-primary)',
                 fontSize: '13px',
                 outline: 'none',
                 transition: 'border-color 0.2s',
               }}
-              onFocus={e => e.target.style.borderColor = 'rgba(0,212,170,0.4)'}
-              onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.06)'}
+              onFocus={e => e.target.style.borderColor = 'var(--accent-border)'}
+              onBlur={e => e.target.style.borderColor = 'var(--border)'}
             />
           </div>
 
@@ -221,10 +219,10 @@ export default function Login() {
               padding: '12px',
               borderRadius: '8px',
               border: 'none',
-              background: '#00d4aa',
-              color: '#0a0d1a',
+              background: 'var(--accent)',
+              color: '#fff',
               fontSize: '14px',
-              fontWeight: 600,
+              fontWeight: 700,
               cursor: 'pointer',
               transition: 'opacity 0.2s',
               display: 'flex',
@@ -241,9 +239,9 @@ export default function Login() {
           marginTop: '20px',
           textAlign: 'center',
           fontSize: '12px',
-          color: '#6b7280',
+          color: 'var(--text-secondary)',
         }}>
-          Don't have an account? <a href="#" style={{ color: '#00d4aa', textDecoration: 'none', fontWeight: 500 }}>Sign up</a>
+          Don't have an account? <a href="#" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 500 }}>Sign up</a>
         </p>
       </motion.div>
     </div>

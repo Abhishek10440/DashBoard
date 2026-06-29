@@ -1,47 +1,187 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import "tailwindcss";
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #0a0d1a;
-  color: #e8e9f0;
+:root {
+  /* ── Primary Colors (Exact site) ── */
+  --primary: #3B82F6;
+  --primary-dark: #2563EB;
+  --primary-light: #2c4463;
+  --primary-soft: rgba(59, 130, 246, 0.05);
+  --primary-mid: rgba(59, 130, 246, 0.15);
+  --primary-border: rgba(59, 130, 246, 0.25);
+  --primary-glow: rgba(59, 130, 246, 0.12);
+
+  /* ── Backgrounds (Exact site) ── */
+  --bg-base: #0a0e1a;
+  --bg-surface: #0f1629;
+  --bg-card: #111b2e;
+  --bg-hover: #1a2640;
+  --bg-elevated: #1a2640;
+
+  /* ── Borders (Exact site) ── */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.15);
+
+  /* ── Secondary Colors ── */
+  --indigo: #4F46E5;
+  --indigo-soft: rgba(79, 70, 229, 0.08);
+
+  /* ── Status Colors ── */
+  --green: #34D399;
+  --green-soft: rgba(52, 211, 153, 0.12);
+  --red: #F87171;
+  --red-soft: rgba(248, 113, 113, 0.12);
+  --gold: #FBBF24;
+  --gold-soft: rgba(251, 191, 36, 0.12);
+
+  /* ── Text Colors ── */
+  --text:           #F0F0F5;        /* Primary white text */
+  --text-primary:   #F0F0F5;        /* Same as text - main heading */
+  --text-secondary: #94A3B8;        /* Secondary text */
+  --text-muted:     #4A4D61;        /* Muted/dim text */
+  --text-dim:       rgba(255, 255, 255, 0.2); /* Very dim */
+  --text-muted-light: #6B7280;  
+
+  /* ── Fonts ── */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.08);
+  --shadow-glow-strong: 0 0 60px rgba(59, 130, 246, 0.15);
+}
+
+/* ── Global Reset ── */
+html, body, #root {
+  height: 100%;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
-/* scrollbar */
-::-webkit-scrollbar { width: 4px; }
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #2a2b35; border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--primary-mid); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-border); }
 
-/* ticker */
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* ── Selection ── */
+::selection {
+  background: var(--primary);
+  color: #fff;
 }
-.ticker { animation: ticker 25s linear infinite; }
-.ticker:hover { animation-play-state: paused; }
 
-/* live dot */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.3; }
+/* ── Links ── */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.15s;
 }
-.blink { animation: blink 1.8s ease-in-out infinite; }
+a:hover {
+  color: var(--primary-light);
+}
 
-/* recharts tooltip */
+/* ── Animations ── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Utility Classes ── */
+.slide-in { animation: slide-in 0.4s ease both; }
+.fade-in { animation: fade-in 0.4s ease both; }
+.float { animation: float 3s ease-in-out infinite; }
+.spin-slow { animation: spin-slow 8s linear infinite; }
+
+/* ── Glow Orb (exact site) ── */
+.glow-orb {
+  position: absolute;
+  width: 40rem;
+  height: 40rem;
+  border-radius: 50%;
+  filter: blur(64px);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.glow-orb-primary {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+}
+
+.glow-orb-indigo {
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
+}
+
+/* ── Recharts Overrides ── */
+.recharts-tooltip-wrapper { outline: none; }
 .recharts-default-tooltip {
-  background: #16171e !important;
-  border: 1px solid #2a2b35 !important;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
   border-radius: 8px !important;
+  font-family: var(--font-sans) !important;
   font-size: 12px !important;
-  font-family: 'Inter', sans-serif !important;
 }
-:root {
-  --bg:         #0a0d1a;   /* Main bg */
-  --bg-card:    #0f1525;   /* Card bg */
-  --bg-sidebar: #0c1020;   /* Sidebar bg */
-  --cyan:       #00d4aa;   /* Accent color - sab jagah */
-  --border:     rgba(255,255,255,0.07);
+.recharts-tooltip-label {
+  color: var(--text-secondary) !important;
+  margin-bottom: 4px !important;
+}
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.04) !important;
+}
+.recharts-legend-item-text {
+  color: var(--text-secondary) !important;
+  font-size: 11px !important;
+}
+
+/* ── Ticker Animation ── */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker {
+  animation: ticker 30s linear infinite;
+}
+.ticker:hover {
+  animation-play-state: paused;
+}
+
+/* ── Glow Effects ── */
+.glow-accent:hover {
+  box-shadow: 0 0 0 1px var(--primary-border), var(--shadow-glow);
+}
+.glow-indigo:hover {
+  box-shadow: 0 0 0 1px var(--indigo-border), 0 4px 24px rgba(79, 70, 229, 0.08);
 }

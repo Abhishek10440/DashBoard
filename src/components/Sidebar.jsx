@@ -1,102 +1,156 @@
-import { motion } from 'framer-motion'
-import { useState } from 'react'
-import {
-  RiDashboardLine, RiLineChartLine, RiRobot2Line,
-  RiBarChartGroupedLine, RiBookLine, RiPulseLine,
-  RiSettings3Line, RiPlugLine, RiStockLine,
-  RiCpuLine, RiLogoutBoxLine,
-} from 'react-icons/ri'
+// src/components/Sidebar.jsx
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-const NAV = [
-  { icon: RiDashboardLine,       label: 'Dashboard' },
-  { icon: RiStockLine,           label: 'Market Analysis' },
-  { icon: RiLineChartLine,       label: 'Chart Analysis' },
-  { icon: RiPulseLine,           label: 'Live AI Assistant' },
-  { icon: RiCpuLine,             label: 'AI Strategies' },
-  { icon: RiRobot2Line,          label: 'Live Trading' },
-  { icon: RiBookLine,            label: 'Trade Journal' },
-  { icon: RiBarChartGroupedLine, label: 'Analytics' },
-  { icon: RiSettings3Line,       label: 'Settings' },
-]
+const navGroups = [
+  {
+    label: 'Dashboard',
+    items: [
+      { icon: '📊', label: 'Market Analysis' },
+      { icon: '📈', label: 'Chart Analysis' },
+      { icon: '⚡', label: 'Live AI Assistant', badge: 'Live', badgeColor: 'blue' },
+      { icon: '🧠', label: 'AI Strategies', badge: 'New', badgeColor: 'blue' },
+      { icon: '🔗', label: 'Live Trading' },
+      { icon: '📓', label: 'Trade Journal' },
+      { icon: '📉', label: 'Analytics' },
+      { icon: '⚙️', label: 'Settings' },
+    ],
+  },
+];
+
+const badgeStyles = {
+  blue:  { bg: 'var(--primary-soft)',  color: 'var(--primary)', border: 'var(--primary-border)' },
+  green: { bg: 'var(--green-soft)',   color: 'var(--green)',  border: 'rgba(52,211,153,0.3)' },
+  gold:  { bg: 'var(--gold-soft)',    color: 'var(--gold)',   border: 'rgba(251,191,36,0.3)' },
+};
 
 export default function Sidebar() {
-  const [active, setActive] = useState('Dashboard')
+  const [active, setActive] = useState('Market Analysis');
+  let itemIndex = 0;
 
   return (
     <motion.aside
-      initial={{ x: -60, opacity: 0 }}
+      initial={{ x: -80, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
+      transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
       style={{
-        position: 'fixed', left: 0, top: 0, bottom: 0, width: 220,
-        background: '#0c1020',
-        borderRight: '1px solid rgba(255,255,255,0.06)',
+        position: 'fixed', left: 0, top: 56, bottom: 0, width: 240,
+        background: 'var(--bg-surface)',
+        borderRight: '1px solid var(--border)',
         display: 'flex', flexDirection: 'column',
-        padding: '20px 10px',
-        zIndex: 40,
+        padding: '20px 14px',
+        zIndex: 40, overflowY: 'auto',
       }}
     >
-      {/* Logo */}
-      <div style={{ display:'flex', alignItems:'center', gap:10, padding:'4px 10px', marginBottom:24 }}>
-        <div style={{
-          width:32, height:32, borderRadius:8,
-          background:'linear-gradient(135deg, #00d4aa, #0099cc)',
-          display:'flex', alignItems:'center', justifyContent:'center',
-          fontSize:16,
-        }}>📈</div>
-        <span style={{ fontSize:15, fontWeight:700, color:'#fff', letterSpacing:'-0.3px' }}>QuantMentor</span>
-      </div>
+      {navGroups.map((group) => (
+        <div key={group.label} style={{ marginBottom: 20 }}>
+          <p style={{
+            fontSize: 14,
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: 'var(--text-secondary)',  
+            padding: '0 8px',
+            marginBottom: 8,
+          }}>{group.label}</p>
 
-      {/* Nav */}
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
-        {NAV.map((item, i) => {
-          const isActive = active === item.label
-          return (
-            <motion.button
-              key={item.label}
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.08 + i * 0.04 }}
-              onClick={() => setActive(item.label)}
-              style={{
-                width: '100%', display: 'flex', alignItems: 'center', gap: 10,
-                padding: '9px 12px', borderRadius: 8,
-                // ✅ cyan instead of violet
-                background: isActive ? 'rgba(0,212,170,0.12)' : 'transparent',
-                border: isActive ? '1px solid rgba(0,212,170,0.25)' : '1px solid transparent',
-                color: isActive ? '#00d4aa' : 'rgba(255,255,255,0.4)',
-                fontSize: 13, fontWeight: isActive ? 500 : 400,
-                cursor: 'pointer', textAlign: 'left',
-                transition: 'all 0.15s',
-              }}
-              onMouseEnter={e => { if (!isActive) { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = 'rgba(255,255,255,0.8)' }}}
-              onMouseLeave={e => { if (!isActive) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.4)' }}}
-            >
-              {/* ✅ icon cyan when active */}
-              <item.icon size={15} style={{ flexShrink: 0, color: isActive ? '#00d4aa' : 'rgba(255,255,255,0.3)' }} />
-              <span style={{ flex: 1 }}>{item.label}</span>
-            </motion.button>
-          )
-        })}
-      </nav>
+          {group.items.map((item) => {
+            const delay = 0.12 + itemIndex++ * 0.04;
+            const isActive = active === item.label;
+            return (
+              <motion.button
+                key={item.label}
+                initial={{ opacity: 0, x: -14 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay, duration: 0.3 }}
+                whileHover={{ x: 2 }}
+                onClick={() => setActive(item.label)}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '10px 12px',
+                  borderRadius: 8,
+                  border: isActive ? '1px solid var(--primary-border)' : '1px solid transparent',
+                  background: isActive ? 'var(--primary-soft)' : 'transparent',
+                  color: isActive ? 'var(--primary)' : 'var(--text-secondary)',
+                  fontSize: 14,
+                  fontWeight: isActive ? 500 : 400,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.15s',
+                  marginBottom: 2,
+                }}
+                onMouseEnter={e => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                    e.currentTarget.style.color = 'var(--text-primary)';
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                  }
+                }}
+              >
+                <span style={{ fontSize: 15, lineHeight: 1 }}>{item.icon}</span>
+                <span style={{ flex: 1 }}>{item.label}</span>
+                {item.badge && (
+                  <span style={{
+                    fontSize: 9,
+                    fontWeight: 700,
+                    padding: '2px 6px',
+                    borderRadius: 4,
+                    background: badgeStyles[item.badgeColor]?.bg || badgeStyles.blue.bg,
+                    color: badgeStyles[item.badgeColor]?.color || badgeStyles.blue.color,
+                    border: `1px solid ${badgeStyles[item.badgeColor]?.border || badgeStyles.blue.border}`,
+                    letterSpacing: '0.04em',
+                  }}>{item.badge}</span>
+                )}
+                {isActive && (
+                  <motion.div
+                    layoutId="sidebar-active"
+                    style={{
+                      width: 3,
+                      height: 16,
+                      borderRadius: 4,
+                      background: 'var(--primary)',
+                      flexShrink: 0,
+                    }}
+                  />
+                )}
+              </motion.button>
+            );
+          })}
+        </div>
+      ))}
 
-      {/* Bottom */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 10, display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {[{ icon: RiPlugLine, label: 'Connect Broker' }, { icon: RiLogoutBoxLine, label: 'Sign Out' }].map(({ icon: Icon, label }) => (
-          <button key={label} style={{
-            display: 'flex', alignItems: 'center', gap: 10,
-            padding: '8px 12px', borderRadius: 8,
-            background: 'transparent', border: 'none',
-            color: 'rgba(255,255,255,0.28)', fontSize: 13, cursor: 'pointer',
-            transition: 'all 0.15s', textAlign: 'left', width: '100%',
+      <div style={{ marginTop: 'auto', display: 'flex', gap: 4 }}>
+        {['⚙️ Settings', '❓ Help'].map(item => (
+          <button key={item} style={{
+            flex: 1,
+            padding: '6px 0',
+            borderRadius: 6,
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid var(--border)',
+            color: 'var(--text-muted)',
+            fontSize: 11,
+            cursor: 'pointer',
+            transition: 'color 0.15s, border-color 0.15s',
           }}
-          onMouseEnter={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.7)'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
-          onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.28)'; e.currentTarget.style.background = 'transparent' }}
-          >
-            <Icon size={14} /> {label}
-          </button>
+          onMouseEnter={e => {
+            e.target.style.color = 'var(--text-secondary)';
+            e.target.style.borderColor = 'var(--primary-border)';
+          }}
+          onMouseLeave={e => {
+            e.target.style.color = 'var(--text-muted)';
+            e.target.style.borderColor = 'var(--border)';
+          }}
+          >{item}</button>
         ))}
       </div>
     </motion.aside>
-  )
+  );
 }
